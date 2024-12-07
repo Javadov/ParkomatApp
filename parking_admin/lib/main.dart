@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_admin/views/active_parkings_view.dart';
+import 'package:parking_admin/views/parkings_view.dart';
 import 'package:parking_admin/views/dashboard_view.dart';
 import 'package:parking_admin/views/parking_spaces_view.dart';
 
@@ -35,7 +35,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _views = [
     const DashboardView(),
     const ParkingSpacesView(),
-    const ActiveParkingsView(),
+    const ParkingsView(),
   ];
 
   @override
@@ -62,7 +62,7 @@ class _MainLayoutState extends State<MainLayout> {
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.monitor),
-                label: Text('Active Parkings'),
+                label: Text('Parkings'),
               ),
             ],
           ),
