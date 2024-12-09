@@ -8,20 +8,28 @@ class ParkingRepository {
 
   List<Parking> getAll() => _parkingBox.getAll();
 
-  List<Parking> getActiveParkings() {
+  // Get active parkings for a specific user
+  List<Parking> getActiveParkingsByUser(String email) {
     final now = DateTime.now();
     return _parkingBox
-        .query(Parking_.endTime.greaterThan(now.millisecondsSinceEpoch))
-        .build()
-        .find();
+      .query(
+        Parking_.userEmail.equals(email) &
+        Parking_.endTime.greaterThan(now.millisecondsSinceEpoch),
+      )
+      .build()
+      .find();
   }
 
-  List<Parking> getParkingHistory() {
+  // Get parking history for a specific user
+  List<Parking> getParkingHistoryByUser(String email) {
     final now = DateTime.now();
     return _parkingBox
-        .query(Parking_.endTime.lessThan(now.millisecondsSinceEpoch))
-        .build()
-        .find();
+      .query(
+        Parking_.userEmail.equals(email) &
+        Parking_.endTime.lessThan(now.millisecondsSinceEpoch),
+      )
+      .build()
+      .find();
   }
 
   List<Parking> getByUserEmail(String email) {

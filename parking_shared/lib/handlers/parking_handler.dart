@@ -23,7 +23,12 @@ class ParkingHandler {
 
     // Get active parkings
     router.get('/active', (Request request) async {
-      final activeParkings = repository.getActiveParkings();
+      final email = request.url.queryParameters['userEmail'];
+      if (email == null) {
+        return Response.badRequest(body: 'userEmail is required');
+      }
+
+      final activeParkings = repository.getActiveParkingsByUser(email);
       return Response.ok(
         jsonEncode(activeParkings.map((parking) => parking.toJson()).toList()),
         headers: {'Content-Type': 'application/json'},
@@ -32,7 +37,12 @@ class ParkingHandler {
 
     // Get parking history
     router.get('/history', (Request request) async {
-      final parkingHistory = repository.getParkingHistory();
+      final email = request.url.queryParameters['userEmail'];
+      if (email == null) {
+        return Response.badRequest(body: 'userEmail is required');
+      }
+
+      final parkingHistory = repository.getParkingHistoryByUser(email);
       return Response.ok(
         jsonEncode(parkingHistory.map((parking) => parking.toJson()).toList()),
         headers: {'Content-Type': 'application/json'},

@@ -24,7 +24,18 @@ class _ManageVehiclesViewState extends State<ManageVehiclesView> {
   @override
   void initState() {
     super.initState();
+    _loadVehicles();
     _vehicles = widget.vehicles;
+  }
+
+  Future<void> _loadVehicles() async {
+    final session = UserSession();
+    final email = session.email;
+    final vehicles = await _profileService.fetchUserVehicles(email!);
+
+    setState(() {
+      _vehicles = vehicles;
+    });
   }
 
   Future<void> _addVehicleDialog() async {
@@ -75,7 +86,7 @@ class _ManageVehiclesViewState extends State<ManageVehiclesView> {
 
                     if (success) {
                       Navigator.pop(context);
-                      widget.onRefreshProfile();
+                      _loadVehicles();
   
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Fordonet har lagts till')),
@@ -90,7 +101,7 @@ class _ManageVehiclesViewState extends State<ManageVehiclesView> {
                       const SnackBar(content: Text('Användaren är inte inloggad')),
                     );
                   }
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 }
               },
               child: const Text('Lägg till'),
@@ -190,6 +201,10 @@ class _ManageVehiclesViewState extends State<ManageVehiclesView> {
       setState(() {
         _vehicles.removeWhere((vehicle) => vehicle['registrationNumber'] == registrationNumber);
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Fordonet har tagit bort')),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Det gick inte att radera fordonet.')),

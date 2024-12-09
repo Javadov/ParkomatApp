@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registreringen lyckad!')),
+          const SnackBar(content: Text('Registreringen lyckad! Vänligen logga in.')),
         );
         Navigator.pop(context);
       } else {

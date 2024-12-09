@@ -31,7 +31,7 @@ class UserHandler {
         }
 
         repository.add(newUser);
-        return Response(201, body: jsonEncode(newUser.toJson()), headers: {'Content-Type': 'application/json'});
+        return Response(200, body: jsonEncode(newUser.toJson()), headers: {'Content-Type': 'application/json'});
       } catch (e) {
         return Response.internalServerError(body: 'Failed to register user');
       }

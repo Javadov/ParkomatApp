@@ -107,10 +107,7 @@ class _ProfileViewState extends State<ProfileView> {
           title: const Text('Personuppgifter'),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            MainLayout.setActivePage(
-              context,
-              EditProfileView(),
-            );
+            MainLayout.setActivePage(context, EditProfileView());
           },
         ),
         const Divider(),
@@ -124,7 +121,10 @@ class _ProfileViewState extends State<ProfileView> {
               ManageVehiclesView(
                 vehicles: _vehicles,
                 onRefreshProfile: () {
-                  MainLayout.setActivePage(context, const ProfileView());
+                  setState(() {
+                    // Refresh the profile view if needed
+                    _loadProfileData(); // Ensure _loadProfileData exists in your ProfileView
+                  });
                 },
               ),
             );
@@ -136,10 +136,7 @@ class _ProfileViewState extends State<ProfileView> {
           title: const Text('Favoriter'),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            MainLayout.setActivePage(
-              context,
-              const FavoritesView(),
-            );
+            MainLayout.setActivePage(context, const FavoritesView());
           },
         ),
         const Divider(),
@@ -148,10 +145,7 @@ class _ProfileViewState extends State<ProfileView> {
           title: const Text('Inställningar'),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            MainLayout.setActivePage(
-              context,
-              const SettingsView(),
-            );
+            MainLayout.setActivePage(context, const SettingsView());
           },
         ),
         const Divider(),
